@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+    <body>
+        <h1>Sunhee</h1>
+        <table border="1">
+            {%for key, value in sunheetodo.items()%}
+            <tr>
+            <th><b>{{key}}</b></th>
+            <td><b>{{value}}</b></td>
+            </tr>
+        {% endfor %}
+        </table>
+
+        <h1>Byungkyu</h1>
+        <table border="1">
+            {%for key, value in bktodo.items()%}
+            <tr>
+            <th><b>{{key}}</b></th>
+            <td><b>{{value}}</b></td>
+            </tr>
+        {% endfor %}
+        </table>
+
+        <h1>WishList</h1>
+        <table border="1">
+            {%for key, value in buy.items()%}
+            <tr>
+            <th><b>{{key}}</b></th>
+            <td><b>{{value}}</b></td>
+            </tr>
+        {% endfor %}
+        </table>
+    </body>
+</html>
