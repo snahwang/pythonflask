@@ -1,4 +1,4 @@
-from flask import Flask, Response, make_response
+from flask import Flask, Response
 from urllib import parse
 import requests
 import json
@@ -13,8 +13,8 @@ def health_check():
 
 @app.route('/sunheetodo', methods=["GET"])
 def spreadsheets():  
-    url = 'https://docs.google.com/spreadsheets/d/16x3q7nPiMAd6HDwVO1MrxdHVkvqldMqhJenHkp6BbUs/gviz/tq?tq='
-    tq = 'select B where C is not null and C<=toDate(now()) and A=false'   
+    url = 'url' #스프레드시트 url
+    tq = 'query' #검색하려는쿼리
     query = parse.quote_plus(tq)      
     response = requests.get(url+query)    
     response_text = response.text.replace('/*O_o*/\ngoogle.visualization.Query.setResponse(', '').replace(');','')               
@@ -22,14 +22,16 @@ def spreadsheets():
     rowlist = response_json['table']['rows']
     todo = []
     
-    
+    case = {}
     for row in rowlist:
         d = {}
         d['todo'] = row['c'][0]['v']        
         todo.append(d)
+    case['list'] = todo
     
     # print (todo)
-    result = json.dumps(todo, ensure_ascii=False, separators=(',',':'))
+    result = Response(json.dumps(case, ensure_ascii=False, separators=(',',':')))
+    result.headers['Content-Type'] = 'application/json'
     return result
 
 
